@@ -11,13 +11,10 @@ import { TransactionsComponent } from './dashboard/transactions/transactions.com
 import { ChainStatusComponent } from './dashboard/chain-status/chain-status.component';
 import { PriceComponent } from './dashboard/price/price.component';
 import { TrendingComponent } from './dashboard/trending/trending.component';
+import { PlatformsComponent } from './dashboard/platforms/platforms.component';
 
 @NgModule({
-  imports: [
-    SharedModule,
-    MatFormFieldModule,
-    MatSelectModule
-  ],
+  imports: [SharedModule, MatFormFieldModule, MatSelectModule],
   declarations: [
     DashboardComponent,
     SettingsComponent,
@@ -26,7 +23,8 @@ import { TrendingComponent } from './dashboard/trending/trending.component';
     TransactionsComponent,
     ChainStatusComponent,
     PriceComponent,
-    TrendingComponent
-  ]
+    TrendingComponent,
+    PlatformsComponent,
+  ],
 })
-export class DashboardModule { }
+export class DashboardModule {}
