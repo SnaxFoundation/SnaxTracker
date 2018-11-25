@@ -12,6 +12,7 @@ import { ChainStatusComponent } from './dashboard/chain-status/chain-status.comp
 import { PriceComponent } from './dashboard/price/price.component';
 import { TrendingComponent } from './dashboard/trending/trending.component';
 import { PlatformsComponent } from './dashboard/platforms/platforms.component';
+import { SupplyComponent } from './dashboard/supply/supply.component';
 
 @NgModule({
   imports: [SharedModule, MatFormFieldModule, MatSelectModule],
@@ -25,6 +26,7 @@ import { PlatformsComponent } from './dashboard/platforms/platforms.component';
     PriceComponent,
     TrendingComponent,
     PlatformsComponent,
+    SupplyComponent,
   ],
 })
 export class DashboardModule {}

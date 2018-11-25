@@ -1,0 +1,26 @@
+<mat-card *ngIf="(status$ | async) as status">
+  <mat-card-title fxLayout="row" fxLayoutAlign="start center">
+    <mat-icon>donut_large</mat-icon>
+    {{ 'Supply' | translate }}
+  </mat-card-title>
+  <mat-card-content class="table-container">
+    <table>
+      <tr>
+        <td>{{ 'Total supply' | translate }}:</td>
+        <td>123 300 000 SNAX</td>
+      </tr>
+      <tr>
+        <td>{{ 'Locked on Escrow' | translate }}:</td>
+        <td>23 300 000 SNAX</td>
+      </tr>
+      <tr>
+        <td>{{ 'System smart-contract (unclaimed)' | translate }}:</td>
+        <td>12 500 000 SNAX</td>
+      </tr>
+      <tr>
+        <td>{{ 'Circulating supply' | translate }}:</td>
+        <td>87 500 000 SNAX</td>
+      </tr>
+    </table>
+  </mat-card-content>
+</mat-card>
