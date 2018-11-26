@@ -5,7 +5,7 @@
   <ng-container *ngIf="!account.isError; else: error">
     <app-account-information
       [account]="account.value"
-      [eosQuote]="app.eosQuote$ | async"
+      [snaxQuote]="app.snaxQuote$ | async"
       [ramQuote]="app.ramQuote$ | async"
     ></app-account-information>
     <mat-tab-group color="primary" dynamicHeight="true">

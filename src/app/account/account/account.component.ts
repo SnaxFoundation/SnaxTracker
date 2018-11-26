@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EosService } from '../../services/eos.service';
+import { SnaxService } from '../../services/snax.service';
 import { AppService } from '../../services/app.service';
 import { Result } from '../../models';
 import { Observable } from 'rxjs';
@@ -21,7 +21,7 @@ export class AccountComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private eosService: EosService,
+    private snaxService: SnaxService,
     public app: AppService
   ) { }
 
@@ -30,23 +30,23 @@ export class AccountComponent implements OnInit {
       map(params => params.id)
     );
     this.account$ = this.name$.pipe(
-      switchMap(name => this.eosService.getAccountRaw(name)),
+      switchMap(name => this.snaxService.getAccountRaw(name)),
       tap(account => console.log('account', account))
     );
     this.accountTokens$ = this.name$.pipe(
-      switchMap(name => this.eosService.getAccountTokens(name))
+      switchMap(name => this.snaxService.getAccountTokens(name))
     );
     this.accountActions$ = this.name$.pipe(
-      switchMap(name => this.eosService.getAccountActions(name))
+      switchMap(name => this.snaxService.getAccountActions(name))
     );
     this.accountAbi$ = this.name$.pipe(
-      switchMap(name => this.eosService.getAbi(name))
+      switchMap(name => this.snaxService.getAbi(name))
     );
   }
 
   loadMore(sequence: number) {
     this.accountNewActions$ = this.name$.pipe(
-      switchMap(name => this.eosService.getAccountActions(name, sequence))
+      switchMap(name => this.snaxService.getAccountActions(name, sequence))
     );
   }
 

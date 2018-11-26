@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { EosService } from './eos.service';
+import { SnaxService } from './snax.service';
 import { Observable, Subject, timer, from, forkJoin, of } from 'rxjs';
 import { map, filter, share, withLatestFrom, switchMap, catchError, take } from 'rxjs/operators';
 
-const EOS_QUOTE = 60000;
+const SNAX_QUOTE = 60000;
 const RAM_QUOTE = 60000;
 const GET_INFO_INTERVAL = 5000;
 
@@ -17,7 +17,7 @@ export class AppService {
 
   latestBlockNumber$ = this.latestBlockNumberSource.asObservable();
   isMaintenance$: Observable<boolean>;
-  eosQuote$: Observable<any>;
+  snaxQuote$: Observable<any>;
   ramQuote$: Observable<any>;
   info$: Observable<any>;
   latestBlock$: Observable<any>;
@@ -26,21 +26,21 @@ export class AppService {
 
   constructor(
     private http: HttpClient,
-    private eosService: EosService
+    private snaxService: SnaxService
   ) {
     this.info$ = timer(0, GET_INFO_INTERVAL).pipe(
-      switchMap(() => this.eosService.getDeferInfo()),
+      switchMap(() => this.snaxService.getDeferInfo()),
       share()
     );
     this.latestBlock$ = this.info$.pipe(
-      switchMap((info: any) => from(this.eosService.getDeferBlock(info.head_block_num))),
+      switchMap((info: any) => from(this.snaxService.getDeferBlock(info.head_block_num))),
       share()
     );
     this.recentBlocks$ = this.latestBlock$.pipe(
       switchMap((block: any) => {
         const blockNumber: number = block.block_num;
         const blockNumbers: number[] = [blockNumber - 1, blockNumber - 2, blockNumber - 3, blockNumber - 4];
-        const blockNumbers$: Observable<any>[] = blockNumbers.map(blockNum => this.eosService.getDeferBlock(blockNum).pipe(catchError(() => of(null))));
+        const blockNumbers$: Observable<any>[] = blockNumbers.map(blockNum => this.snaxService.getDeferBlock(blockNum).pipe(catchError(() => of(null))));
         return forkJoin(blockNumbers$).pipe(
           map((blocks) => [block, ...blocks].filter(block => block !== null))
         );
@@ -69,24 +69,24 @@ export class AppService {
       }),
       share()
     );
-    this.eosQuote$ = timer(0, EOS_QUOTE).pipe(
-      switchMap(() => this.getEOSTicker()),
+    this.snaxQuote$ = timer(0, SNAX_QUOTE).pipe(
+      switchMap(() => this.getSNAXTicker()),
       filter(ticker => !!ticker.data),
       map(ticker => ticker.data),
       share()
     );
     this.ramQuote$ = timer(0, RAM_QUOTE).pipe(
-      switchMap(() => from(this.eosService.eos.getTableRows({
+      switchMap(() => from(this.snaxService.snax.getTableRows({
         json: true,
-        code: "eosio",
-        scope: "eosio",
+        code: "snax",
+        scope: "snax",
         table: "rammarket"
       }))),
       filter((data: any) => data.rows && data.rows.length),
       map(data => data.rows[0]),
       map(data => {
         const base = Number(data.base.balance.replace('RAM', ''));
-        const quote = Number(data.quote.balance.replace('EOS', ''));
+        const quote = Number(data.quote.balance.replace('SNAX', ''));
         return {
           ...data,
           price: quote / base
@@ -113,7 +113,7 @@ export class AppService {
           blockNumbers.push(i);
         }
         const blockNumbers$: Observable<any>[] = blockNumbers.map(blockNumber => {
-          return this.eosService.getDeferBlock(blockNumber).pipe(
+          return this.snaxService.getDeferBlock(blockNumber).pipe(
             catchError(() => of(null))
           );
         });
@@ -125,10 +125,10 @@ export class AppService {
   }
 
   getTokens(): Observable<any[]> {
-    return this.http.get<any[]>(`https://raw.githubusercontent.com/eoscafe/eos-airdrops/master/tokens.json`);
+    return this.http.get<any[]>(`https://raw.githubusercontent.com/snaxcafe/snax-airdrops/master/tokens.json`);
   }
 
-  getEOSTicker(): Observable<CMCTicker> {
+  getSNAXTicker(): Observable<CMCTicker> {
     return this.http.get<CMCTicker>('https://api.coinmarketcap.com/v2/ticker/1765/');
   }
 

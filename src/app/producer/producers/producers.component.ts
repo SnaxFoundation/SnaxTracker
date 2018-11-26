@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { EosService } from '../../services/eos.service';
+import { SnaxService } from '../../services/snax.service';
 import { Observable, of, timer } from 'rxjs';
 import { map, share, switchMap } from 'rxjs/operators';
 
@@ -16,7 +16,7 @@ export class ProducersComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private eosService: EosService
+    private snaxService: SnaxService
   ) { }
 
   ngOnInit() {
@@ -24,11 +24,11 @@ export class ProducersComponent implements OnInit {
       map(result => result.matches ? PRODUCERS_COLUMNS.filter((c: any) => (c !== 'url' && c !== 'numVotes')) : PRODUCERS_COLUMNS)
     );
     this.chainStatus$ = timer(0, 60000).pipe(
-      switchMap(() => this.eosService.getChainStatus()),
+      switchMap(() => this.snaxService.getChainStatus()),
       share()
     );
     this.producers$ = this.chainStatus$.pipe(
-      switchMap(chainStatus => this.eosService.getProducers().pipe(
+      switchMap(chainStatus => this.snaxService.getProducers().pipe(
         map(producers => {
           const votesToRemove = producers.reduce((acc, cur) => {
             const percentageVotes = cur.total_votes / chainStatus.total_producer_vote_weight * 100;
@@ -65,9 +65,9 @@ export class ProducersComponent implements OnInit {
 
   private calculateVoteWeight() {
     //time epoch:
-    //https://github.com/EOSIO/eos/blob/master/contracts/eosiolib/time.hpp#L160
+    //https://github.com/SNAX/snax/blob/master/contracts/snaxlib/time.hpp#L160
     //stake to vote
-    //https://github.com/EOSIO/eos/blob/master/contracts/eosio.system/voting.cpp#L105-L109
+    //https://github.com/SNAX/snax/blob/master/contracts/snax.system/voting.cpp#L105-L109
     let timestamp_epoch: number = 946684800000;
     let dates_: number = (Date.now() / 1000) - (timestamp_epoch / 1000);
     let weight_: number = Math.floor(dates_ / (86400 * 7)) / 52;  //86400 = seconds per day 24*3600

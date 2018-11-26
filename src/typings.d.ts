@@ -4,6 +4,8 @@ interface NodeModule {
   id: string;
 }
 
-interface Window { ConfettiGenerator: any }
+interface Window {
+  ConfettiGenerator: any;
+}
 
-declare module 'eosjs';
+declare module "@snaxfoundation/snaxjs";

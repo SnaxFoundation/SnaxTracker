@@ -3,7 +3,7 @@ import { FormControl } from '@angular/forms';
 import { TranslateService } from '@ngx-translate/core';
 import { LocalStorage } from 'ngx-webstorage';
 import { take } from 'rxjs/operators';
-import { EosService } from '../../services/eos.service';
+import { SnaxService } from '../../services/snax.service';
 
 @Component({
   templateUrl: './settings.component.html',
@@ -19,7 +19,7 @@ export class SettingsComponent implements OnInit {
 
   constructor(
     private translate: TranslateService,
-    private eosService: EosService
+    private snaxService: SnaxService
   ) { }
 
   ngOnInit() {
@@ -35,13 +35,13 @@ export class SettingsComponent implements OnInit {
 
     // setup api control
     this.apiControl = new FormControl();
-    this.eosService.apiEndpoint$.pipe(
+    this.snaxService.apiEndpoint$.pipe(
       take(1)
     ).subscribe(apiEndpoint => {
       this.apiControl.setValue(apiEndpoint);
     });
     this.apiControl.valueChanges.subscribe(apiEndpoint => {
-      this.eosService.setApiEndpoint(apiEndpoint);
+      this.snaxService.setApiEndpoint(apiEndpoint);
     });
   }
 
@@ -62,8 +62,8 @@ export const LANGUAGES = [
 ];
 
 export const APIS = [
-  { name: 'EOS Dublin', endpoint: 'https://api1.eosdublin.io' },
-  { name: 'EOS New York', endpoint: 'http://api.eosnewyork.io' },
-  { name: 'Greymass', endpoint: 'https://eos.greymass.com' },
+  { name: 'SNAX Dublin', endpoint: 'https://api1.snaxdublin.io' },
+  { name: 'SNAX New York', endpoint: 'http://api.snaxnewyork.io' },
+  { name: 'Greymass', endpoint: 'https://snax.greymass.com' },
   { name: 'Cypherglass', endpoint: 'http://api.cypherglass.com' }
 ]

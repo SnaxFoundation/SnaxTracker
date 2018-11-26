@@ -1,6 +1,6 @@
 import { AppPage } from './app.po';
 
-describe('eos-explorer App', () => {
+describe('snax-explorer App', () => {
   let page: AppPage;
 
   beforeEach(() => {

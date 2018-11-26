@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "eos-explorer": {
+    "snax-explorer": {
       "root": "",
       "sourceRoot": "src",
       "projectType": "application",
@@ -50,18 +50,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "eos-explorer:build"
+            "browserTarget": "snax-explorer:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "eos-explorer:build:production"
+              "browserTarget": "snax-explorer:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "eos-explorer:build"
+            "browserTarget": "snax-explorer:build"
           }
         },
         "test": {
@@ -85,7 +85,7 @@
         }
       }
     },
-    "eos-explorer-e2e": {
+    "snax-explorer-e2e": {
       "root": "e2e/",
       "projectType": "application",
       "architect": {
@@ -93,7 +93,7 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "./protractor.conf.js",
-            "devServerTarget": "eos-explorer:serve"
+            "devServerTarget": "snax-explorer:serve"
           }
         },
         "lint": {
@@ -106,7 +106,7 @@
       }
     }
   },
-  "defaultProject": "eos-explorer",
+  "defaultProject": "snax-explorer",
   "schematics": {
     "@schematics/angular:component": {
       "prefix": "app",

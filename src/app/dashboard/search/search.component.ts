@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, of, empty } from 'rxjs';
 import { map, tap, switchMap, catchError } from 'rxjs/operators';
-import { EosService } from '../../services/eos.service';
+import { SnaxService } from '../../services/snax.service';
 
 @Component({
   selector: 'app-search',
@@ -17,7 +17,7 @@ export class SearchComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private eosService: EosService
+    private snaxService: SnaxService
   ) { }
 
   ngOnInit() {
@@ -36,7 +36,7 @@ export class SearchComponent implements OnInit {
   private tryBlockNumber(query: string): Observable<string> {
     const blockNumber = Number(query);
     if (!isNaN(blockNumber)) {
-      return this.eosService.getDeferBlock(blockNumber).pipe(
+      return this.snaxService.getDeferBlock(blockNumber).pipe(
         catchError(() => of(null)),
         switchMap(data => {
           if (data) {
@@ -52,7 +52,7 @@ export class SearchComponent implements OnInit {
 
   private tryTransaction(query: string): Observable<string> {
     if (query.length === 64) {
-      return this.eosService.getDeferTransaction(query).pipe(
+      return this.snaxService.getDeferTransaction(query).pipe(
         catchError(() => of(null)),
         switchMap(transaction => {
           if (transaction) {
@@ -68,7 +68,7 @@ export class SearchComponent implements OnInit {
 
   private tryBlockId(query: string): Observable<string> {
     if (query.length === 64) {
-      return this.eosService.getDeferBlock(query).pipe(
+      return this.snaxService.getDeferBlock(query).pipe(
         catchError(() => of(null)),
         switchMap(block => {
           if (block) {
@@ -84,7 +84,7 @@ export class SearchComponent implements OnInit {
 
   private tryAccount(query: string): Observable<string> {
     if (query.length <= 12) {
-      return this.eosService.getDeferAccount(query).pipe(
+      return this.snaxService.getDeferAccount(query).pipe(
         catchError(() => of(null)),
         switchMap(account => {
           if (account) {

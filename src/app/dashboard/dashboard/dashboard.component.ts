@@ -8,14 +8,14 @@ import { Observable } from 'rxjs';
 })
 export class DashboardComponent implements OnInit {
 
-  eosQuote$: Observable<boolean>;
+  snaxQuote$: Observable<boolean>;
 
   constructor(
     private appService: AppService
   ) { }
 
   ngOnInit() {
-    this.eosQuote$ = this.appService.eosQuote$;
+    this.snaxQuote$ = this.appService.snaxQuote$;
   }
 
 }

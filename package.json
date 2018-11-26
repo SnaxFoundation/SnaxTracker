@@ -1,5 +1,5 @@
 {
-  "name": "eos-explorer",
+  "name": "snax-explorer",
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
@@ -34,7 +34,7 @@
     "angular2-prettyjson": "^2.0.6",
     "confetti-js": "0.0.11",
     "core-js": "^2.5.7",
-    "eosjs": "^16.0.0",
+    "@snaxfoundation/snaxjs": "^20.0.0-beta5",
     "express": "^4.16.3",
     "moment": "^2.22.2",
     "ngx-json-viewer": "^2.3.1",

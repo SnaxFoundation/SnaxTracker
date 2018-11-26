@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {EosService} from '../services/eos.service';
+import {SnaxService} from '../services/snax.service';
 import {ScatterService} from '../services/scatter.service';
 import {timer} from 'rxjs/index';
 import {takeWhile} from 'rxjs/operators';
@@ -19,7 +19,7 @@ export class SupportComponent implements OnInit {
 
   readonly contract = "trackeraegis";
 
-  constructor(private eosService: EosService,
+  constructor(private snaxService: SnaxService,
               private scatterService: ScatterService) {
   }
 
@@ -34,7 +34,7 @@ export class SupportComponent implements OnInit {
     this.info = null;
     this.alive = false;
 
-    this.eosService.eos.getTableRows(
+    this.snaxService.snax.getTableRows(
       {
         json: true,
         code: this.contract,
@@ -47,7 +47,7 @@ export class SupportComponent implements OnInit {
     });
 
 
-    this.eosService.eos.getTableRows(
+    this.snaxService.snax.getTableRows(
       {
         json: true,
         code: this.contract,
@@ -59,7 +59,7 @@ export class SupportComponent implements OnInit {
       this.patrons = result.rows.sort(this.compare);
     });
 
-    this.eosService.eos.getTableRows(
+    this.snaxService.snax.getTableRows(
       {
         json: true,
         code: this.contract,
@@ -82,7 +82,7 @@ export class SupportComponent implements OnInit {
       timer(0, 3000).pipe(
         takeWhile(() => this.alive)
       ).subscribe(() => {
-        this.eosService.getDeferTransaction(transaction.transaction_id).subscribe(data => {
+        this.snaxService.getDeferTransaction(transaction.transaction_id).subscribe(data => {
           if (data) {
             this.loadTables();
           }
@@ -103,7 +103,7 @@ export class SupportComponent implements OnInit {
       timer(0, 3000).pipe(
         takeWhile(() => this.alive)
       ).subscribe(() => {
-        this.eosService.getDeferTransaction(transaction.transaction_id).subscribe(data => {
+        this.snaxService.getDeferTransaction(transaction.transaction_id).subscribe(data => {
           if (data) {
 
             let confettiSettings = {

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { EosService } from '../../services/eos.service';
+import { SnaxService } from '../../services/snax.service';
 import { Result } from '../../models';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
@@ -15,12 +15,12 @@ export class TransactionComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private eosService: EosService
+    private snaxService: SnaxService
   ) { }
 
   ngOnInit() {
     this.transaction$ = this.route.params.pipe(
-      switchMap(params => this.eosService.getTransactionRaw(+params.blockId, params.id))
+      switchMap(params => this.snaxService.getTransactionRaw(+params.blockId, params.id))
     );
   }
 
