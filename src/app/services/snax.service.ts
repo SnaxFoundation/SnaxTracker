@@ -88,6 +88,41 @@ export class SnaxService {
     return this.getResult<any>(getAccount$);
   }
 
+  getSupplyInfo(token: string): Observable<Result<any>> {
+    return from(
+      this.snax.rpc.get_table_rows({
+        json: true,
+        code: "snax.token",
+        scope: token,
+        table: "stat",
+        limit: 1,
+        table_key: ""
+      })
+    ).pipe(
+      map((result: any) => {
+        return result.rows[0];
+      })
+    );
+  }
+
+  getGlobalState(): Observable<Result<any>> {
+    return from(
+      this.snax.rpc.get_table_rows({
+        json: true,
+        code: "snax",
+        scope: "snax",
+        table: "global",
+        limit: 1,
+        table_key: ""
+      })
+    ).pipe(
+      map((result: any) => {
+        console.log(result);
+        return result.rows[0];
+      })
+    );
+  }
+
   getAccountActions(
     name: string,
     position = -1,
@@ -110,6 +145,12 @@ export class SnaxService {
         )
       )
     );
+  }
+
+  getCurrencyBalance(token: any, account: string): Observable<any> {
+    return from(
+      this.snax.rpc.get_currency_balance(token.account, account, token.symbol)
+    ).pipe(catchError(() => of("0.0000 " + token.symbol)));
   }
 
   getAccountTokens(name: string): Observable<Result<any[]>> {

@@ -1,25 +1,25 @@
-<mat-card *ngIf="(status$ | async) as status">
+<mat-card *ngIf="{snaxToken: snaxTokenInfo$ | async, global: globalInfo$ | async} as info">
   <mat-card-title fxLayout="row" fxLayoutAlign="start center">
     <mat-icon>donut_large</mat-icon>
     {{ 'Supply' | translate }}
   </mat-card-title>
   <mat-card-content class="table-container">
     <table>
-      <tr>
+      <tr *ngIf="info.snaxToken as snaxToken">
         <td>{{ 'Total supply' | translate }}:</td>
-        <td>123 300 000 SNAX</td>
+        <td>{{ snaxToken.max_supply }}</td>
       </tr>
-      <tr>
+      <tr *ngIf="info.global as global">
         <td>{{ 'Locked on Escrow' | translate }}:</td>
-        <td>23 300 000 SNAX</td>
+        <td>{{ global.staked_by_team }}</td>
       </tr>
-      <tr>
+      <tr *ngIf="systemBalance$ | async as balance">
         <td>{{ 'System smart-contract (unclaimed)' | translate }}:</td>
-        <td>12 500 000 SNAX</td>
+        <td>{{ balance }}</td>
       </tr>
-      <tr>
+      <tr *ngIf="info.snaxToken as snaxToken">
         <td>{{ 'Circulating supply' | translate }}:</td>
-        <td>87 500 000 SNAX</td>
+        <td>{{ snaxToken.supply }}</td>
       </tr>
     </table>
   </mat-card-content>
