@@ -10,6 +10,7 @@ import { environment } from "../../environments/environment";
 import {
   Observable,
   from,
+  forkJoin,
   of,
   defer,
   combineLatest,
@@ -117,7 +118,6 @@ export class SnaxService {
       })
     ).pipe(
       map((result: any) => {
-        console.log(result);
         return result.rows[0];
       })
     );
@@ -229,6 +229,46 @@ export class SnaxService {
         return result.rows
           .map(row => ({ ...row, total_votes: parseFloat(row.total_votes) }))
           .sort((a, b) => b.total_votes - a.total_votes);
+      })
+    );
+  }
+
+  getPlatformList() {
+    return this.getGlobalState().pipe(
+      map((result: any) => {
+        return forkJoin(
+          result.platforms.map(({ account, period, weight }) =>
+            combineLatest([
+              from(
+                this.snax.rpc.get_table_rows({
+                  json: true,
+                  code: "snax",
+                  scope: "snax",
+                  table: "platsteps",
+                  limit: 1
+                })
+              ),
+              from(
+                this.snax.rpc.get_table_rows({
+                  json: true,
+                  code: account,
+                  scope: account,
+                  table: "state",
+                  limit: 1
+                })
+              )
+            ]).pipe(
+              map(([steps, result]: Array<any>) => ({
+                last_scoring_time: steps[0]
+                  ? new Date(steps[0].request)
+                  : "Didn't score yet",
+                ...result.rows[0],
+                period,
+                weight
+              }))
+            )
+          )
+        );
       })
     );
   }

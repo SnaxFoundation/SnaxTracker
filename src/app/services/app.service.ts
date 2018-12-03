@@ -173,6 +173,10 @@ export class AppService {
     );
   }
 
+  getPlatformList() {
+    return this.snaxService.getPlatformList();
+  }
+
   getSNAXTicker(): Observable<CMCTicker> {
     return this.http.get<CMCTicker>(
       "https://api.coinmarketcap.com/v2/ticker/1765/"
