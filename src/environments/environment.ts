@@ -6,9 +6,9 @@
 export const environment = {
   production: false,
   walletUrl: "#",
-  votingUrl: "https://testcdn5.snax.one",
+  votingUrl: "https://testnetcdn.snax.one",
   appName: "SNAX Tracker",
   logoUrl: "/assets/logo.png",
-  blockchainUrl: "https://testcdn5.snax.one",
+  blockchainUrl: "https://testnetcdn.snax.one",
   chainId: "aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906"
 };

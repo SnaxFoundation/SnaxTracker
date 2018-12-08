@@ -19,6 +19,12 @@
       <ng-container matColumnDef="platform_name">
         <th mat-header-cell *matHeaderCellDef>Platform name</th>
         <td mat-cell *matCellDef="let platform">
+          <id-64 [id]="platform.platform_name">{{ platform.platform_name }}</id-64>
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="platform_account">
+        <th mat-header-cell *matHeaderCellDef>Platform account</th>
+        <td mat-cell *matCellDef="let platform">
           <id-64 [id]="platform.account">{{ platform.account }}</id-64>
         </td>
       </ng-container>
@@ -38,10 +44,10 @@
       </ng-container>
       <ng-container matColumnDef="users_count">
         <th mat-header-cell *matHeaderCellDef>
-          {{ 'Users Total' | translate }}
+          {{ 'Users Registered' | translate }}
         </th>
         <td mat-cell *matCellDef="let platform">
-          {{ platform.account_count }}
+          {{ platform.registered_account_count }}
         </td>
       </ng-container>
       <ng-container matColumnDef="emission_total">

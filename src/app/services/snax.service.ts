@@ -150,7 +150,10 @@ export class SnaxService {
   getCurrencyBalance(token: any, account: string): Observable<any> {
     return from(
       this.snax.rpc.get_currency_balance(token.account, account, token.symbol)
-    ).pipe(catchError(() => of("0.0000 " + token.symbol)));
+    ).pipe(
+      map((balance: string[]) => balance[0] || "0.0000 " + token.symbol),
+      catchError(() => of("0.0000 " + token.symbol))
+    );
   }
 
   getAccountTokens(name: string): Observable<Result<any[]>> {
@@ -264,6 +267,8 @@ export class SnaxService {
                   : "Didn't score yet",
                 ...result.rows[0],
                 period,
+                platform_name:
+                  result.rows[0].platform_name || result.rows[0].account,
                 weight
               }))
             )

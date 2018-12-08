@@ -28,6 +28,7 @@ export class PlatformsComponent implements OnInit {
 
 const DEFAULT_HEADERS = [
   "platform_name",
+  "platform_account",
   "supply_share",
   "scoring_round_time",
   "users_count",
