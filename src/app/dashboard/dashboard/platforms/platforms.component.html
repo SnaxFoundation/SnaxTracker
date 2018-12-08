@@ -42,12 +42,20 @@
         </th>
         <td mat-cell *matCellDef="let platform">{{ platform.period }} h</td>
       </ng-container>
-      <ng-container matColumnDef="users_count">
+      <ng-container matColumnDef="registered_users_count">
         <th mat-header-cell *matHeaderCellDef>
           {{ 'Users Registered' | translate }}
         </th>
         <td mat-cell *matCellDef="let platform">
           {{ platform.registered_account_count }}
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="users_count">
+        <th mat-header-cell *matHeaderCellDef>
+          {{ 'Users Total' | translate }}
+        </th>
+        <td mat-cell *matCellDef="let platform">
+          {{ platform.total_account_count }}
         </td>
       </ng-container>
       <ng-container matColumnDef="emission_total">

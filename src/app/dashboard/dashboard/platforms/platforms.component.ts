@@ -31,6 +31,7 @@ const DEFAULT_HEADERS = [
   "platform_account",
   "supply_share",
   "scoring_round_time",
+  "registered_users_count",
   "users_count",
   "emission_total",
   "sr_time_last"
