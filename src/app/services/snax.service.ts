@@ -246,9 +246,9 @@ export class SnaxService {
                 this.snax.rpc.get_table_rows({
                   json: true,
                   code: "snax",
-                  scope: "snax",
+                  scope: account,
                   table: "platsteps",
-                  limit: 1
+                  limit: 500
                 })
               ),
               from(
@@ -262,9 +262,10 @@ export class SnaxService {
               )
             ]).pipe(
               map(([steps, result]: Array<any>) => ({
-                last_scoring_time: steps[0]
-                  ? new Date(steps[0].request)
-                  : "Didn't score yet",
+                last_scoring_time:
+                  steps && Array.isArray(steps.rows) && steps.rows.slice(-1)
+                    ? new Date(steps.rows.slice(-1)[0].request)
+                    : "Didn't score yet",
                 ...result.rows[0],
                 period,
                 platform_name:
