@@ -1,0 +1,19 @@
+@import '../themes.scss';
+
+.snax-explorer-app.dark-theme {
+  .mat-drawer-container {
+    background-color: map_get($paletteBlueGrey, 900);
+  }
+
+  .mat-drawer,
+  .mat-card,
+  .mat-table,
+  .mat-paginator,
+  .mat-toolbar.mat-primary {
+    background-color: map_get($paletteBlueGrey, 800);
+  }
+
+  pre {
+    outline: 0px solid transparent !important;
+  }
+}
