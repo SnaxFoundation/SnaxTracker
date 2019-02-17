@@ -1,12 +1,6 @@
-import {
-  Api,
-  JsonRpc,
-  RpcError,
-  JsSignatureProvider
-} from "@snaxfoundation/snaxjs";
-import { Injectable } from "@angular/core";
+import { Api, JsonRpc, JsSignatureProvider } from "@snaxfoundation/snaxjs";
 import { HttpClient } from "@angular/common/http";
-import { environment } from "../../environments/environment";
+import { Injectable } from "@angular/core";
 import {
   Observable,
   from,
@@ -16,9 +10,13 @@ import {
   combineLatest,
   BehaviorSubject
 } from "rxjs";
+import { T, always, identity, ifElse, last, pipe, prop, tryCatch } from "ramda";
 import { map, catchError, switchMap } from "rxjs/operators";
-import { Result } from "../models";
+
 import { LoggerService } from "./logger.service";
+import { Result } from "../models";
+import { environment } from "../../environments/environment";
+import { formatDateTime } from "../../utils";
 
 declare var TextDecoder: any;
 declare var TextEncoder: any;
@@ -237,6 +235,7 @@ export class SnaxService {
   }
 
   getPlatformList() {
+    const didntScoreYet = always("Didn't score yet");
     return this.getGlobalState().pipe(
       map((result: any) => {
         return forkJoin(
@@ -262,10 +261,15 @@ export class SnaxService {
               )
             ]).pipe(
               map(([steps, result]: Array<any>) => ({
-                last_scoring_time:
-                  steps && Array.isArray(steps.rows) && steps.rows.slice(-1)
-                    ? new Date(steps.rows.slice(-1)[0].request)
-                    : "Didn't score yet",
+                last_scoring_time: tryCatch(
+                  pipe(
+                    prop("rows"),
+                    last,
+                    prop("request"),
+                    ifElse(identity, formatDateTime, didntScoreYet)
+                  ),
+                  didntScoreYet
+                )(steps),
                 ...result.rows[0],
                 period,
                 platform_name:
