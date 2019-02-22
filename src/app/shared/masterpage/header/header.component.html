@@ -1,5 +1,5 @@
 <header fxLayout="row" fxLayoutAlign="start center">
-  <div fxFlex *ngIf="!searchExpanded">
+  <div fxFlex *ngIf="!searchExpanded" class="brand-box">
     <button mat-icon-button fxHide.gt-sm (click)="onMenuToggle.emit()">
       <mat-icon>menu</mat-icon>
     </button>
@@ -8,5 +8,8 @@
       <span>{{ appName | translate }}</span>
     </a>
   </div>
-  <app-search (onSearchExpanded)="searchExpanded = $event" [ngClass]="searchExpanded ? 'search-expanded' : 'search-collapsed'"></app-search>
+  <app-search
+    (onSearchExpanded)="searchExpanded = $event"
+    [ngClass]="searchExpanded ? 'search-expanded' : 'search-collapsed'"
+  ></app-search>
 </header>

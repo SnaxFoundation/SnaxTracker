@@ -41,5 +41,7 @@ const DEFAULT_HEADERS = [
 const XSMALL_HEADERS = [
   'id',
   'block_num',
+  'cpu',
+  'net',
   'actions'
 ];

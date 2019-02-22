@@ -1,13 +1,13 @@
-import { Component, OnInit } from "@angular/core";
-import { BreakpointObserver, Breakpoints } from "@angular/cdk/layout";
-import { Observable, of } from "rxjs";
-import { map } from "rxjs/operators";
-import { AppService } from "../../../services/app.service";
+import { Component, OnInit } from '@angular/core';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { AppService } from '../../../services/app.service';
 
 @Component({
-  selector: "app-platforms",
-  templateUrl: "./platforms.component.html",
-  styleUrls: ["./platforms.component.scss"]
+  selector: 'app-platforms',
+  templateUrl: './platforms.component.html',
+  styleUrls: ['./platforms.component.scss'],
 })
 export class PlatformsComponent implements OnInit {
   columnHeaders$: Observable<string[]> = of(DEFAULT_HEADERS);
@@ -15,7 +15,7 @@ export class PlatformsComponent implements OnInit {
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private appService: AppService
+    private appService: AppService,
   ) {}
 
   ngOnInit() {
@@ -27,14 +27,23 @@ export class PlatformsComponent implements OnInit {
 }
 
 const DEFAULT_HEADERS = [
-  "platform_name",
-  "platform_account",
-  "supply_share",
-  "scoring_round_time",
-  "registered_users_count",
-  "users_count",
-  "emission_total",
-  "sr_time_last"
+  'platform_name',
+  'platform_account',
+  'supply_share',
+  'scoring_round_time',
+  'registered_users_count',
+  'users_count',
+  'emission_total',
+  'sr_time_last',
 ];
 
-const XSMALL_HEADERS = ["platform_name", "supply_share"];
+const XSMALL_HEADERS = [
+  'platform_name',
+  'platform_account',
+  'supply_share',
+  'scoring_round_time',
+  'registered_users_count',
+  'users_count',
+  'emission_total',
+  'sr_time_last',
+];
