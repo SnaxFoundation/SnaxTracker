@@ -11,6 +11,7 @@ export class SupplyComponent implements OnInit {
   snaxTokenInfo$;
   globalInfo$;
   systemBalance$;
+  teamEscrow$;
 
   constructor(private appService: AppService) {}
 
@@ -19,5 +20,6 @@ export class SupplyComponent implements OnInit {
     this.snaxTokenInfo$ = this.appService.getSNAXStat();
     this.globalInfo$ = this.appService.getGlobalState();
     this.systemBalance$ = this.appService.getSystemBalance();
+    this.teamEscrow$ = this.appService.getTeamEscrow();
   }
 }

@@ -154,6 +154,25 @@ export class SnaxService {
     );
   }
 
+  getEscrowBalance(account: string): Observable<any> {
+    return from(
+      this.snax.rpc.get_table_rows({
+        json: true,
+        code: "snax",
+        scope: account,
+        table: "escband",
+        limit: 700,
+        table_key: ""
+      })
+    ).pipe(
+      map((result: any) => {
+        return `${result.rows
+          .reduce((acc, row) => acc + parseFloat(row.amount), 0)
+          .toFixed(4)} SNAX`;
+      })
+    );
+  }
+
   getAccountTokens(name: string): Observable<Result<any[]>> {
     const allTokens$: Observable<any[]> = this.http.get<any[]>(
       `https://raw.githubusercontent.com/snaxcafe/snax-airdrops/master/tokens.json`
