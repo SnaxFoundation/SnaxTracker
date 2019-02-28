@@ -87,16 +87,21 @@ export class SnaxService {
     return this.getResult<any>(getAccount$);
   }
 
-  getCirculatingSupply(): Observable<Result<any>> {
-    const supplyInfo = combineLatest([
+  getCirculatingSupply(): Observable<any> {
+    return forkJoin(
       this.getSupplyInfo("SNAX"),
-      this.getSystemBalance(),
-      this.getCurrencyBalance("SNAX", "p.twitter")
-    ]).pipe(
-      map((supply, systemBalance, platformBalance) => {
-        return `${parseFloat(supply) -
+      this.getCurrencyBalance({ account: "snax", symbol: "SNAX" }, "snax"),
+      this.getCurrencyBalance(
+        { account: "snax.token", symbol: "SNAX" },
+        "p.twitter"
+      )
+    ).pipe(
+      map(([{ supply }, systemBalance, platformBalance]) => {
+        return `${(
+          parseFloat(supply) -
           parseFloat(systemBalance) -
-          parseFloat(platformBalance).toFixed(4)} SNAX`;
+          parseFloat(platformBalance)
+        ).toFixed(4)} SNAX`;
       })
     );
   }

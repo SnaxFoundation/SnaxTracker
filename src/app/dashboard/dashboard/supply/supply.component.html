@@ -1,4 +1,4 @@
-<mat-card *ngIf="{snaxToken: snaxTokenInfo$ | async, global: globalInfo$ | async, teamEscrowBalance: teamEscrow$ | async} as info">
+<mat-card *ngIf="{circulatingSupply: circulatingSupply$ | async, snaxToken: snaxTokenInfo$ | async, global: globalInfo$ | async, teamEscrowBalance: teamEscrow$ | async} as info">
   <mat-card-title fxLayout="row" fxLayoutAlign="start center">
     <mat-icon>donut_large</mat-icon>
     {{ 'Supply' | translate }}
@@ -17,7 +17,7 @@
         <td>{{ 'System smart-contract (unclaimed)' | translate }}:</td>
         <td>{{ balance }}</td>
       </tr>
-      <tr *ngIf="circulatingSupply$ as circulatingSupply">
+      <tr *ngIf="info.circulatingSupply as circulatingSupply">
         <td>{{ 'Circulating supply' | translate }}:</td>
         <td>{{ circulatingSupply }}</td>
       </tr>

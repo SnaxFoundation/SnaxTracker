@@ -149,6 +149,10 @@ export class AppService {
     );
   }
 
+  getCirculatingSupply(): Observable<Result<any>> {
+    return this.snaxService.getCirculatingSupply();
+  }
+
   getGlobalState(): Observable<Result<any>> {
     return this.snaxService.getGlobalState();
   }
@@ -159,10 +163,6 @@ export class AppService {
 
   getSNAXStat(): Observable<Result<any>> {
     return this.snaxService.getSupplyInfo("SNAX");
-  }
-
-  getCirculatingSupply(): Observable<Result<any>> {
-    return this.snaxService.getCirculatingSupply();
   }
 
   getSystemBalance(): Observable<Result<any>> {
