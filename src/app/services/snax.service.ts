@@ -87,6 +87,20 @@ export class SnaxService {
     return this.getResult<any>(getAccount$);
   }
 
+  getCirculatingSupply(): Observable<Result<any>> {
+    const supplyInfo = combineLatest([
+      this.getSupplyInfo("SNAX"),
+      this.getSystemBalance(),
+      this.getCurrencyBalance("SNAX", "p.twitter")
+    ]).pipe(
+      map((supply, systemBalance, platformBalance) => {
+        return `${parseFloat(supply) -
+          parseFloat(systemBalance) -
+          parseFloat(platformBalance).toFixed(4)} SNAX`;
+      })
+    );
+  }
+
   getSupplyInfo(token: string): Observable<Result<any>> {
     return from(
       this.snax.rpc.get_table_rows({

@@ -17,9 +17,9 @@
         <td>{{ 'System smart-contract (unclaimed)' | translate }}:</td>
         <td>{{ balance }}</td>
       </tr>
-      <tr *ngIf="info.snaxToken as snaxToken">
+      <tr *ngIf="circulatingSupply$ as circulatingSupply">
         <td>{{ 'Circulating supply' | translate }}:</td>
-        <td>{{ snaxToken.supply }}</td>
+        <td>{{ circulatingSupply }}</td>
       </tr>
     </table>
   </mat-card-content>

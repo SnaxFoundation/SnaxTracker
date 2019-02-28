@@ -12,6 +12,7 @@ export class SupplyComponent implements OnInit {
   globalInfo$;
   systemBalance$;
   teamEscrow$;
+  circulatingSupply$;
 
   constructor(private appService: AppService) {}
 
@@ -21,5 +22,6 @@ export class SupplyComponent implements OnInit {
     this.globalInfo$ = this.appService.getGlobalState();
     this.systemBalance$ = this.appService.getSystemBalance();
     this.teamEscrow$ = this.appService.getTeamEscrow();
+    this.circulatingSupply = this.appService.getCirculatingSupply();
   }
 }

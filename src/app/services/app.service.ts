@@ -161,6 +161,10 @@ export class AppService {
     return this.snaxService.getSupplyInfo("SNAX");
   }
 
+  getCirculatingSupply(): Observable<Result<any>> {
+    return this.snaxService.getCirculatingSupply();
+  }
+
   getSystemBalance(): Observable<Result<any>> {
     return this.snaxService.getCurrencyBalance(
       {
