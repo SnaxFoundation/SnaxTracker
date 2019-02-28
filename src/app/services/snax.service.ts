@@ -96,13 +96,19 @@ export class SnaxService {
         "p.twitter"
       )
     ).pipe(
-      map(([{ supply }, systemBalance, platformBalance]) => {
-        return `${(
-          parseFloat(supply) -
-          parseFloat(systemBalance) -
-          parseFloat(platformBalance)
-        ).toFixed(4)} SNAX`;
-      })
+      map(
+        ([{ supply }, systemBalance, platformBalance]: [
+          { supply: string },
+          string,
+          string
+        ]) => {
+          return `${(
+            parseFloat(supply) -
+            parseFloat(systemBalance) -
+            parseFloat(platformBalance)
+          ).toFixed(4)} SNAX`;
+        }
+      )
     );
   }
 
