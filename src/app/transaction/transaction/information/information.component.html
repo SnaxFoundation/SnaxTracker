@@ -16,10 +16,10 @@
           <td>{{ 'Timestamp' | translate }}:</td>
           <td>{{transaction.block_time | amFromUtc | date:'MMM d, y, h:mm:ss.SSS a'}}</td>
         </tr>
-        <tr>
+        <!-- <tr>
           <td>{{ 'Irreversible' | translate }}:</td>
           <td>{{transaction.last_irreversible_block > transaction.block_num}}</td>
-        </tr>
+        </tr> -->
         <!-- <tr>
           <td>{{ 'Pending' | translate }}:</td>
           <td>{{transaction.trx.trx?.delay_sec > 0}}</td>
