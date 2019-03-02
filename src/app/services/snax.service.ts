@@ -90,22 +90,40 @@ export class SnaxService {
   getCirculatingSupply(): Observable<any> {
     return forkJoin(
       this.getSupplyInfo("SNAX"),
-      this.getCurrencyBalance({ account: "snax", symbol: "SNAX" }, "snax"),
+      this.getCurrencyBalance(
+        { account: "snax.token", symbol: "SNAX" },
+        "snax"
+      ),
       this.getCurrencyBalance(
         { account: "snax.token", symbol: "SNAX" },
         "p.twitter"
-      )
+      ),
+      this.getCurrencyBalance(
+        { account: "snax.token", symbol: "SNAX" },
+        "snax.creator"
+      ),
+      this.getCurrencyBalance(
+        { account: "snax.token", symbol: "SNAX" },
+        "snax.airdrop"
+      ),
+      this.getEscrowBalance("snax.team")
     ).pipe(
       map(
-        ([{ supply }, systemBalance, platformBalance]: [
-          { supply: string },
-          string,
-          string
-        ]) => {
+        ([
+          { supply },
+          systemBalance,
+          platformBalance,
+          creatorBalance,
+          airdropBalance,
+          escrowTeam
+        ]: [{ supply: string }, string, string, string, string, string]) => {
           return `${(
             parseFloat(supply) -
             parseFloat(systemBalance) -
-            parseFloat(platformBalance)
+            parseFloat(platformBalance) -
+            parseFloat(creatorBalance) -
+            parseFloat(airdropBalance) -
+            parseFloat(escrowTeam)
           ).toFixed(4)} SNAX`;
         }
       )
