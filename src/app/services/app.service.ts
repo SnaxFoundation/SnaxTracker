@@ -70,10 +70,10 @@ export class AppService {
             return {
               ...transaction,
               block_num: current.block_num,
-              trx:
-                typeof transaction.trx === "string"
-                  ? { id: transaction.trx }
-                  : transaction.trx
+              // trx:
+              //   typeof transaction.trx === "string"
+              //     ? { id: transaction.trx }
+              //     : transaction.trx
             };
           });
           return previous.concat(transactions);
