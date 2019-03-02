@@ -14,7 +14,7 @@ export class TransactionsComponent implements OnInit {
     'status',
     'cpu',
     'net',
-    'actions'
+    // 'actions'
   ];
 
   constructor() { }

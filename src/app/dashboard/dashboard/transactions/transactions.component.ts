@@ -35,7 +35,7 @@ const DEFAULT_HEADERS = [
   'block_num',
   'cpu',
   'net',
-  'actions'
+  // 'actions'
 ];
 
 const XSMALL_HEADERS = [
@@ -43,5 +43,5 @@ const XSMALL_HEADERS = [
   'block_num',
   'cpu',
   'net',
-  'actions'
+  // 'actions'
 ];
