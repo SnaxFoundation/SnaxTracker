@@ -205,12 +205,7 @@ export class SnaxService {
 
   getTransactionRaw(blockId: number, id: string): Observable<Result<any>> {
     const getTransaction$ = defer(() =>
-      from(
-        this.snax.rpc.history_get_transaction({
-          id: id,
-          block_num_hint: blockId
-        })
-      )
+      from(this.snax.rpc.history_get_transaction(id, blockId))
     );
     return this.getResult<any>(getTransaction$);
   }
