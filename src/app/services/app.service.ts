@@ -149,8 +149,16 @@ export class AppService {
     );
   }
 
+  getCirculatingSupply(): Observable<Result<any>> {
+    return this.snaxService.getCirculatingSupply();
+  }
+
   getGlobalState(): Observable<Result<any>> {
     return this.snaxService.getGlobalState();
+  }
+
+  getTeamEscrow(): Observable<Result<any>> {
+    return this.snaxService.getEscrowBalance("snax.team");
   }
 
   getSNAXStat(): Observable<Result<any>> {

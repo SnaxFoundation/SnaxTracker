@@ -20,4 +20,19 @@
   .mat-card {
     min-width: 0;
   }
+
+  .mat-expansion-panel {
+    background-color: map_get($paletteBlueGrey, 800);
+  }
+
+  input {
+    background-color: transparent;
+    color: #fff;
+    border-radius: 2px !important;
+    border-color: map_get($paletteBlueGrey, 700) !important;
+
+    &::placeholder {
+      color: map_get($paletteBlueGrey, 500) !important;
+    }
+  }
 }

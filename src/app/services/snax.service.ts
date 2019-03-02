@@ -87,6 +87,31 @@ export class SnaxService {
     return this.getResult<any>(getAccount$);
   }
 
+  getCirculatingSupply(): Observable<any> {
+    return forkJoin(
+      this.getSupplyInfo("SNAX"),
+      this.getCurrencyBalance({ account: "snax", symbol: "SNAX" }, "snax"),
+      this.getCurrencyBalance(
+        { account: "snax.token", symbol: "SNAX" },
+        "p.twitter"
+      )
+    ).pipe(
+      map(
+        ([{ supply }, systemBalance, platformBalance]: [
+          { supply: string },
+          string,
+          string
+        ]) => {
+          return `${(
+            parseFloat(supply) -
+            parseFloat(systemBalance) -
+            parseFloat(platformBalance)
+          ).toFixed(4)} SNAX`;
+        }
+      )
+    );
+  }
+
   getSupplyInfo(token: string): Observable<Result<any>> {
     return from(
       this.snax.rpc.get_table_rows({
@@ -151,6 +176,25 @@ export class SnaxService {
     ).pipe(
       map((balance: string[]) => balance[0] || "0.0000 " + token.symbol),
       catchError(() => of("0.0000 " + token.symbol))
+    );
+  }
+
+  getEscrowBalance(account: string): Observable<any> {
+    return from(
+      this.snax.rpc.get_table_rows({
+        json: true,
+        code: "snax",
+        scope: account,
+        table: "escband",
+        limit: 700,
+        table_key: ""
+      })
+    ).pipe(
+      map((result: any) => {
+        return `${result.rows
+          .reduce((acc, row) => acc + parseFloat(row.amount), 0)
+          .toFixed(4)} SNAX`;
+      })
     );
   }
 

@@ -1,5 +1,4 @@
 @import '../../../../themes';
-;
 :host {
   display: block;
   position: fixed;
@@ -12,9 +11,17 @@
 header {
   height: 100%;
   padding: 0 20px;
+  color: #fff;
+
+  .brand-box {
+    display: flex;
+    align-items: center;
+  }
+
   .mat-icon-button {
     margin-right: 10px;
   }
+
   .brand {
     color: mat-color($mat-snax, 500);
     img {
@@ -23,6 +30,7 @@ header {
       vertical-align: middle;
     }
   }
+
   .search-collapsed {
     width: auto;
   }
