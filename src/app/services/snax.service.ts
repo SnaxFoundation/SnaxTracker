@@ -170,13 +170,7 @@ export class SnaxService {
     offset = -20
   ): Observable<Result<any[]>> {
     const getAccountActions$ = defer(() =>
-      from(
-        this.snax.rpc.history_get_actions({
-          account_name: name,
-          pos: position,
-          offset: offset
-        })
-      )
+      from(this.snax.rpc.history_get_actions(name, position, offset))
     );
     return this.getResult<any[]>(
       getAccountActions$.pipe(
