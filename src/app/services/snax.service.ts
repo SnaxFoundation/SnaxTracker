@@ -164,7 +164,7 @@ export class SnaxService {
     );
   }
 
-  getAccountActions(
+  accountActions(
     name: string,
     position = -1,
     offset = -20
@@ -176,7 +176,9 @@ export class SnaxService {
       getAccountActions$.pipe(
         map((data: any) => data.actions),
         map((actions: any[]) =>
-          actions.sort((a, b) => b.account_action_seq - a.account_action_seq)
+          actions.sort(
+            (a, b) => b.receipt.global_sequence - a.receipt.global_sequence
+          )
         )
       )
     );
