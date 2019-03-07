@@ -177,7 +177,9 @@ export class SnaxService {
         map((data: any) => data.actions),
         map((actions: any[]) =>
           actions.sort(
-            (a, b) => b.receipt.global_sequence - a.receipt.global_sequence
+            (a, b) =>
+              b.action_trace.receipt.global_sequence -
+              a.action_trace.receipt.global_sequence
           )
         )
       )

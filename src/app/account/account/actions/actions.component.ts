@@ -28,7 +28,7 @@ export class ActionsComponent implements OnChanges {
     if (this.actions && !this.actions.isError && this.actions.value.length) {
       this.accountActionSequence = this.actions.value[
         this.actions.value.length - 1
-      ].receipt.global_sequence;
+      ].action_trace.receipt.global_sequence;
     }
   }
 }
