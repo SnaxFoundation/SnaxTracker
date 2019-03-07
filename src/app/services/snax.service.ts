@@ -164,7 +164,7 @@ export class SnaxService {
     );
   }
 
-  accountActions(
+  getAccountActions(
     name: string,
     position = -1,
     offset = -20
