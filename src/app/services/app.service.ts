@@ -1,7 +1,7 @@
-import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
-import { SnaxService } from "./snax.service";
-import { Observable, Subject, timer, from, forkJoin, of } from "rxjs";
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { SnaxService } from './snax.service';
+import { Observable, Subject, timer, from, forkJoin, of } from 'rxjs';
 import {
   map,
   filter,
@@ -10,15 +10,15 @@ import {
   switchMap,
   catchError,
   take
-} from "rxjs/operators";
-import { Result } from "../models";
+} from 'rxjs/operators';
+import { Result } from '../models';
 
 const SNAX_QUOTE = 60000;
 const RAM_QUOTE = 60000;
 const GET_INFO_INTERVAL = 5000;
 
 @Injectable({
-  providedIn: "root"
+  providedIn: 'root'
 })
 export class AppService {
   private latestBlockNumberSource = new Subject<number>();
@@ -70,10 +70,10 @@ export class AppService {
             return {
               ...transaction,
               block_num: current.block_num,
-              // trx:
-              //   typeof transaction.trx === "string"
-              //     ? { id: transaction.trx }
-              //     : transaction.trx
+              trx:
+                typeof transaction.trx === 'string'
+                  ? { id: transaction.trx }
+                  : transaction.trx
             };
           });
           return previous.concat(transactions);
@@ -99,17 +99,17 @@ export class AppService {
         from(
           this.snaxService.snax.getTableRows({
             json: true,
-            code: "snax",
-            scope: "snax",
-            table: "rammarket"
+            code: 'snax',
+            scope: 'snax',
+            table: 'rammarket'
           })
         )
       ),
       filter((data: any) => data.rows && data.rows.length),
       map(data => data.rows[0]),
       map(data => {
-        const base = Number(data.base.balance.replace("RAM", ""));
-        const quote = Number(data.quote.balance.replace("SNAX", ""));
+        const base = Number(data.base.balance.replace('RAM', ''));
+        const quote = Number(data.quote.balance.replace('SNAX', ''));
         return {
           ...data,
           price: quote / base
@@ -158,20 +158,20 @@ export class AppService {
   }
 
   getTeamEscrow(): Observable<Result<any>> {
-    return this.snaxService.getEscrowBalance("snax.team");
+    return this.snaxService.getEscrowBalance('snax.team');
   }
 
   getSNAXStat(): Observable<Result<any>> {
-    return this.snaxService.getSupplyInfo("SNAX");
+    return this.snaxService.getSupplyInfo('SNAX');
   }
 
   getSystemBalance(): Observable<Result<any>> {
     return this.snaxService.getCurrencyBalance(
       {
-        account: "snax.token",
-        symbol: "SNAX"
+        account: 'snax.token',
+        symbol: 'SNAX'
       },
-      "snax"
+      'snax'
     );
   }
 
@@ -187,7 +187,7 @@ export class AppService {
 
   getSNAXTicker(): Observable<CMCTicker> {
     return this.http.get<CMCTicker>(
-      "https://api.coinmarketcap.com/v2/ticker/1765/"
+      'https://api.coinmarketcap.com/v2/ticker/1765/'
     );
   }
 
