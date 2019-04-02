@@ -1,6 +1,13 @@
-import moment from "moment";
+import moment from 'moment';
 
 export const formatDateTime = dateTime =>
-  moment(dateTime).format("MMMM Do YYYY, h:mm:ss a");
+  moment
+    .utc(dateTime)
+    .local()
+    .format('MMMM Do YYYY, h:mm:ss a');
 
-export const formatDate = date => moment(date).format("MMMM Do YYYY");
+export const formatDate = date =>
+  moment
+    .utc(date)
+    .local()
+    .format('MMMM Do YYYY');
