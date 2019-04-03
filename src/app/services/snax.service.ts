@@ -1,6 +1,6 @@
-import { Api, JsonRpc, JsSignatureProvider } from "@snaxfoundation/snaxjs";
-import { HttpClient } from "@angular/common/http";
-import { Injectable } from "@angular/core";
+import { Api, JsonRpc, JsSignatureProvider } from '@snaxfoundation/snaxjs';
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import {
   Observable,
   from,
@@ -9,14 +9,14 @@ import {
   defer,
   combineLatest,
   BehaviorSubject
-} from "rxjs";
-import { T, always, identity, ifElse, last, pipe, prop, tryCatch } from "ramda";
-import { map, catchError, switchMap } from "rxjs/operators";
+} from 'rxjs';
+import { T, always, identity, ifElse, last, pipe, prop, tryCatch } from 'ramda';
+import { map, catchError, switchMap } from 'rxjs/operators';
 
-import { LoggerService } from "./logger.service";
-import { Result } from "../models";
-import { environment } from "../../environments/environment";
-import { formatDateTime } from "../../utils";
+import { LoggerService } from './logger.service';
+import { Result } from '../models';
+import { environment } from '../../environments/environment';
+import { formatDateTime } from '../../utils';
 
 declare var TextDecoder: any;
 declare var TextEncoder: any;
@@ -57,7 +57,7 @@ export class SnaxService {
         };
       }),
       catchError(error => {
-        this.logger.error("CHAIN_ERROR", error);
+        this.logger.error('CHAIN_ERROR', error);
         return of({
           isError: true,
           value: error
@@ -89,24 +89,24 @@ export class SnaxService {
 
   getCirculatingSupply(): Observable<any> {
     return forkJoin(
-      this.getSupplyInfo("SNAX"),
+      this.getSupplyInfo('SNAX'),
       this.getCurrencyBalance(
-        { account: "snax.token", symbol: "SNAX" },
-        "snax"
+        { account: 'snax.token', symbol: 'SNAX' },
+        'snax'
       ),
       this.getCurrencyBalance(
-        { account: "snax.token", symbol: "SNAX" },
-        "p.twitter"
+        { account: 'snax.token', symbol: 'SNAX' },
+        'p.twitter'
       ),
       this.getCurrencyBalance(
-        { account: "snax.token", symbol: "SNAX" },
-        "snax.creator"
+        { account: 'snax.token', symbol: 'SNAX' },
+        'snax.creator'
       ),
       this.getCurrencyBalance(
-        { account: "snax.token", symbol: "SNAX" },
-        "snax.airdrop"
+        { account: 'snax.token', symbol: 'SNAX' },
+        'snax.airdrop'
       ),
-      this.getEscrowBalance("snax.team")
+      this.getEscrowBalance('snax.team')
     ).pipe(
       map(
         ([
@@ -134,11 +134,11 @@ export class SnaxService {
     return from(
       this.snax.rpc.get_table_rows({
         json: true,
-        code: "snax.token",
+        code: 'snax.token',
         scope: token,
-        table: "stat",
+        table: 'stat',
         limit: 1,
-        table_key: ""
+        table_key: ''
       })
     ).pipe(
       map((result: any) => {
@@ -151,11 +151,11 @@ export class SnaxService {
     return from(
       this.snax.rpc.get_table_rows({
         json: true,
-        code: "snax",
-        scope: "snax",
-        table: "global",
+        code: 'snax',
+        scope: 'snax',
+        table: 'global',
         limit: 1,
-        table_key: ""
+        table_key: ''
       })
     ).pipe(
       map((result: any) => {
@@ -190,8 +190,8 @@ export class SnaxService {
     return from(
       this.snax.rpc.get_currency_balance(token.account, account, token.symbol)
     ).pipe(
-      map((balance: string[]) => balance[0] || "0.0000 " + token.symbol),
-      catchError(() => of("0.0000 " + token.symbol))
+      map((balance: string[]) => balance[0] || '0.0000 ' + token.symbol),
+      catchError(() => of('0.0000 ' + token.symbol))
     );
   }
 
@@ -199,11 +199,11 @@ export class SnaxService {
     return from(
       this.snax.rpc.get_table_rows({
         json: true,
-        code: "snax",
+        code: 'snax',
         scope: account,
-        table: "escband",
+        table: 'escband',
         limit: 700,
-        table_key: ""
+        table_key: ''
       })
     ).pipe(
       map((result: any) => {
@@ -227,7 +227,7 @@ export class SnaxService {
       ).pipe(
         map((balance: string[]) => ({
           ...token,
-          balance: balance[0] ? Number(balance[0].split(" ", 1)) : 0
+          balance: balance[0] ? Number(balance[0].split(' ', 1)) : 0
         })),
         catchError(() =>
           of({
@@ -274,11 +274,11 @@ export class SnaxService {
     return from(
       this.snax.rpc.get_table_rows({
         json: true,
-        code: "snax",
-        scope: "snax",
-        table: "producers",
+        code: 'snax',
+        scope: 'snax',
+        table: 'producers',
         limit: 700,
-        table_key: ""
+        table_key: ''
       })
     ).pipe(
       map((result: any) => {
@@ -291,17 +291,25 @@ export class SnaxService {
 
   getPlatformList() {
     const didntScoreYet = always("Didn't score yet");
-    return this.getGlobalState().pipe(
+    return from(
+      this.snax.rpc.get_table_rows({
+        json: true,
+        code: 'snax',
+        scope: 'snax',
+        table: 'platforms',
+        limit: 500
+      })
+    ).pipe(
       map((result: any) => {
         return forkJoin(
-          result.platforms.map(({ account, period, weight }) =>
+          result.rows.map(({ account, period, weight }) =>
             combineLatest([
               from(
                 this.snax.rpc.get_table_rows({
                   json: true,
-                  code: "snax",
+                  code: 'snax',
                   scope: account,
-                  table: "platsteps",
+                  table: 'platsteps',
                   limit: 500
                 })
               ),
@@ -310,7 +318,7 @@ export class SnaxService {
                   json: true,
                   code: account,
                   scope: account,
-                  table: "state",
+                  table: 'state',
                   limit: 1
                 })
               )
@@ -318,9 +326,9 @@ export class SnaxService {
               map(([steps, result]: Array<any>) => ({
                 last_scoring_time: tryCatch(
                   pipe(
-                    prop("rows"),
+                    prop('rows'),
                     last,
-                    prop("request"),
+                    prop('request'),
                     ifElse(identity, formatDateTime, didntScoreYet)
                   ),
                   didntScoreYet
@@ -342,9 +350,9 @@ export class SnaxService {
     return from(
       this.snax.rpc.get_table_rows({
         json: true,
-        code: "snax",
-        scope: "snax",
-        table: "global",
+        code: 'snax',
+        scope: 'snax',
+        table: 'global',
         limit: 1
       })
     ).pipe(map((result: any) => result.rows[0]));
