@@ -1,18 +1,18 @@
-💎 EOS Tracker
+💎 SNAX Tracker
 ========================
 
-EOS Tracker is a Frontend based on Angular4 that connects to [EOS Tracker API](https://github.com/EOSEssentials/EOSTracker-API).
+SNAX Tracker is a Frontend based on Angular4 that connects to [SNAX Tracker API](https://github.com/SNAXEssentials/SNAXTracker-API).
 
 📌 Getting Started
 ------------
 
 ```bash
-$ git clone git@github.com:EOSEssentials/EOSTracker.git
-$ cd EOSTracker
+$ git clone git@github.com:SNAXEssentials/SNAXTracker.git
+$ cd SNAXTracker
 $ npm install
 ```
 
-📌 Development server
+📌 Development server 
 ------------
 
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.

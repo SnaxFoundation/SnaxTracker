@@ -1,7 +1,6 @@
 <mat-toolbar color="primary">
   <h1 class="mat-headline">{{ 'Dashboard' | translate }}</h1>
 </mat-toolbar>
-<div><img src="/assets/snax-banner.png" style="width: 100%;" /></div>
 <div>
   <div
     fxLayout="column"
@@ -9,8 +8,11 @@
     fxLayoutGap="10px"
     style="margin:10px;"
   >
-    <app-dashboard-chain-status fxFlex.gt-sm="50%"></app-dashboard-chain-status>
-    <app-supply fxFlex.gt-sm="50%"></app-supply>
+    <app-dashboard-chain-status
+      fxFlex="50%"
+      fxFlex.gt-md="100%"
+    ></app-dashboard-chain-status>
+    <app-supply fxFlex="50%" fxFlex.gt-md="100%"></app-supply>
   </div>
   <div style="margin:10px;"><app-platforms></app-platforms></div>
   <div style="margin:10px;"><app-dashboard-blocks></app-dashboard-blocks></div>

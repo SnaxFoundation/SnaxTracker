@@ -5,10 +5,10 @@
 
 export const environment = {
   production: false,
-  walletUrl: '#',
-  votingUrl: 'https://eosportal.io',
-  appName: 'SNAX Tracker',
-  logoUrl: '/assets/logo.png',
-  blockchainUrl: 'https://eos.greymass.com',
-  chainId: 'aca376f206b8fc25a6ed44dbdc66547c36c6c33e3a119ffbeaef943642f0e906',
+  walletUrl: "#",
+  votingUrl: "https://cdn.snax.one",
+  appName: "SNAX Tracker",
+  logoUrl: "/assets/logo.png",
+  blockchainUrl: "https://cdn.snax.one",
+  chainId: "c8ed526571dc2ae39b842d978a9f2b6db059e4dd871105bfe1132be08c06ff8a"
 };

@@ -43,10 +43,10 @@ const DEFAULT_HEADERS = [
   'id',
   'cpu',
   'net',
-  'actions'
+  // 'actions'
 ];
 
 const XSMALL_HEADERS = [
   'id',
-  'actions'
+  // 'actions'
 ];

@@ -76,7 +76,7 @@
               RAM: {{ this.balance.ram | number: '1.0-4' }} SNAX <br />
               Total SNAX: {{ this.balance.total | number: '1.0-4' }} SNAX <br />
               Total USD:
-              {{ this.balance.total * this.eosQuote.price | currency }}
+              {{ this.balance.total * this.snaxQuote.price | currency }}
             </div>
           </td>
         </tr>

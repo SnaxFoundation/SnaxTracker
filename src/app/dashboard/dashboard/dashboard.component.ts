@@ -1,21 +1,17 @@
-import { Component, OnInit } from '@angular/core';
-import { AppService } from '../../services/app.service';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from "@angular/core";
+import { AppService } from "../../services/app.service";
+import { Observable } from "rxjs";
 
 @Component({
-  templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.scss']
+  templateUrl: "./dashboard.component.html",
+  styleUrls: ["./dashboard.component.scss"]
 })
 export class DashboardComponent implements OnInit {
+  snaxQuote$: Observable<boolean>;
 
-  eosQuote$: Observable<boolean>;
-
-  constructor(
-    private appService: AppService
-  ) { }
+  constructor(private appService: AppService) {}
 
   ngOnInit() {
-    this.eosQuote$ = this.appService.eosQuote$;
+    this.snaxQuote$ = this.appService.snaxQuote$;
   }
-
 }

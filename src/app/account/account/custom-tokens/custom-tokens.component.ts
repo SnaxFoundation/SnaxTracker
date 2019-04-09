@@ -2,7 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material';
 import { AppService } from '../../../services/app.service';
-import { EosService } from '../../../services/eos.service';
+import { SnaxService } from '../../../services/snax.service';
 import { from } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
 
@@ -23,7 +23,7 @@ export class CustomTokensComponent implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) private data: any,
     private appService: AppService,
-    private eosService: EosService
+    private snaxService: SnaxService
   ) { }
 
   ngOnInit() {
@@ -32,7 +32,7 @@ export class CustomTokensComponent implements OnInit {
 
   submit() {
     const token = this.tokenForm.value;
-    this.token$ = from(this.eosService.eos.getCurrencyBalance(token.account, this.data.account, token.symbol)).pipe(
+    this.token$ = from(this.snaxService.snax.getCurrencyBalance(token.account, this.data.account, token.symbol)).pipe(
       filter((balance: string[]) => balance && balance.length > 0),
       map(balance => balance[0])
     );

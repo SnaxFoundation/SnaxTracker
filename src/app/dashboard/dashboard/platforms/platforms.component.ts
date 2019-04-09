@@ -11,7 +11,7 @@ import { AppService } from '../../../services/app.service';
 })
 export class PlatformsComponent implements OnInit {
   columnHeaders$: Observable<string[]> = of(DEFAULT_HEADERS);
-  platform$;
+  platforms$;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -22,21 +22,28 @@ export class PlatformsComponent implements OnInit {
     this.columnHeaders$ = this.breakpointObserver
       .observe(Breakpoints.XSmall)
       .pipe(map(result => (result.matches ? XSMALL_HEADERS : DEFAULT_HEADERS)));
-    this.platform$ = this.appService.recentTransactions$.pipe(
-      map(transactions => transactions.slice(0, 50)),
-    );
+    this.platforms$ = this.appService.getPlatformList();
   }
 }
 
 const DEFAULT_HEADERS = [
   'platform_name',
+  'platform_account',
   'supply_share',
   'scoring_round_time',
+  'registered_users_count',
   'users_count',
   'emission_total',
   'sr_time_last',
-  'cpu',
-  'net',
 ];
 
-const XSMALL_HEADERS = ['platform_name', 'supply_share'];
+const XSMALL_HEADERS = [
+  'platform_name',
+  'platform_account',
+  'supply_share',
+  'scoring_round_time',
+  'registered_users_count',
+  'users_count',
+  'emission_total',
+  'sr_time_last',
+];

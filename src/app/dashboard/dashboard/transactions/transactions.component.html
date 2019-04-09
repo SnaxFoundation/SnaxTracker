@@ -37,12 +37,12 @@
           {{transaction.net_usage_words | toKB | number:'1.0-3'}} KB
         </td>
       </ng-container>
-      <ng-container matColumnDef="actions">
+      <!-- <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef>{{ 'Actions' | translate }}</th>
         <td mat-cell *matCellDef="let transaction">
           {{transaction.trx.transaction?.actions?.length || 0}}
         </td>
-      </ng-container>
+      </ng-container> -->
     </table>
   </div>
 </div>
