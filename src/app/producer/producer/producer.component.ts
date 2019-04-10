@@ -38,14 +38,23 @@ export class ProducerComponent implements OnInit {
           }
           return acc;
         }, 0);
+
+        const blockReward = 6.2;
+        const dailyBlocks = 24 * 3600 * 2;
+
         let position = parseInt(index) + 1;
-        const reward = 0;
+        let reward = 0;
+
         let percentageVotes =
           (producer.total_votes / chainStatus.total_producer_vote_weight) * 100;
+
         let percentageVotesRewarded =
           (producer.total_votes /
             (chainStatus.total_producer_vote_weight - votesToRemove)) *
           100;
+
+        reward += percentageVotesRewarded * blockReward * dailyBlocks / 100;
+
         return {
           ...producer,
           account: account,

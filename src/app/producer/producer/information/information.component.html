@@ -36,7 +36,7 @@
       </tr>
       <tr *ngIf="producer">
         <td>{{ 'Daily Reward' | translate }}:</td>
-        <td>{{ producer.reward }} SNAX</td>
+        <td>{{ producer.reward | number }} SNAX</td>
       </tr>
     </table>
   </mat-card-content>

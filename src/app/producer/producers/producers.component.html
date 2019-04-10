@@ -47,7 +47,7 @@
           {{ 'Daily Reward' | translate }}
         </th>
         <td mat-cell *matCellDef="let producer">
-          {{ producer.reward }} <span *ngIf="producer.reward">SNAX</span>
+          {{ producer.reward | number }} <span *ngIf="producer.reward">SNAX</span>
         </td>
       </ng-container>
     </table>

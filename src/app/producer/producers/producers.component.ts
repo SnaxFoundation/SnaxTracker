@@ -48,24 +48,34 @@ export class ProducersComponent implements OnInit {
               }
               return acc;
             }, 0);
+
+            const blockReward = 6.2;
+            const dailyBlocks = 24 * 3600 * 2;
+
             return producers.map((producer, index) => {
               let position = parseInt(index) + 1;
               let reward = 0;
+
               let percentageVotes =
                 (producer.total_votes /
                   chainStatus.total_producer_vote_weight) *
                 100;
+
               let percentageVotesRewarded =
                 (producer.total_votes /
                   (chainStatus.total_producer_vote_weight - votesToRemove)) *
                 100;
-              if (position < 22) {
-                reward += 318;
-              }
-              reward += percentageVotesRewarded * 200;
+
+              // if (position < 22) {
+              //   reward += 318;
+              // }
+
+              reward += percentageVotesRewarded * blockReward * dailyBlocks / 100;
+
               if (reward < 100) {
                 reward = 0;
               }
+
               return {
                 ...producer,
                 position: position,
