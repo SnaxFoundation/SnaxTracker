@@ -1,5 +1,10 @@
 import { Component, OnChanges, Input } from '@angular/core';
 
+function toFixed(num, fixed) {
+  const re = new RegExp('^-?\\d+(?:\.\\d{0,' + (fixed || -1) + '})?');
+  return num.toString().match(re)[0];
+}
+
 @Component({
   selector: 'app-vote-progress-bar',
   templateUrl: './vote-progress-bar.component.html',
@@ -20,7 +25,7 @@ export class VoteProgressBarComponent implements OnChanges {
       const blockReward = 6.2;
       const totalReward = blocksFromStart * blockReward;
 
-      this.chainPercentage = (this.chainStatus.total_activated_stake / 10000 / (15004794732 + totalReward) * 100);
+      this.chainPercentage = toFixed(this.chainStatus.total_activated_stake / 10000 / (15004794732 + totalReward) * 100, 1);
       this.chainNumber = (this.chainStatus.total_activated_stake / (15004794732 + totalReward) * 100000);
     }
   }
