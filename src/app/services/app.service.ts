@@ -176,6 +176,26 @@ export class AppService {
     );
   }
 
+  getAirdropBalance():  Observable<Result<any>> {
+    return this.snaxService.getCurrencyBalance(
+      {
+        account: 'snax.token',
+        symbol: 'SNAX'
+      },
+      'snax.airdrop'
+    );
+  }
+
+  getCreatorBalance():  Observable<Result<any>> {
+    return this.snaxService.getCurrencyBalance(
+      {
+        account: 'snax.token',
+        symbol: 'SNAX'
+      },
+      'snax.creator'
+    );
+  }
+
   getTokens(): Observable<any[]> {
     return this.http.get<any[]>(
       `https://raw.githubusercontent.com/snaxcafe/snax-airdrops/master/tokens.json`
