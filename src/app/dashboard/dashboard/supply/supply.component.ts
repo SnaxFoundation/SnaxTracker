@@ -13,6 +13,8 @@ export class SupplyComponent implements OnInit {
   systemBalance$;
   teamEscrow$;
   circulatingSupply$;
+  airdropBalance$;
+  creatorBalance$;
 
   constructor(private appService: AppService) {}
 
@@ -23,5 +25,7 @@ export class SupplyComponent implements OnInit {
     this.systemBalance$ = this.appService.getSystemBalance();
     this.teamEscrow$ = this.appService.getTeamEscrow();
     this.circulatingSupply$ = this.appService.getCirculatingSupply();
+    this.airdropBalance$ = this.appService.getAirdropBalance();
+    this.creatorBalance$ = this.appService.getCreatorBalance();
   }
 }
