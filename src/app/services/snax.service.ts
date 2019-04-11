@@ -142,7 +142,9 @@ export class SnaxService {
       })
     ).pipe(
       map((result: any) => {
-        return result.rows[0];
+        const supply = result.rows[0];
+        supply.max_supply = `100000000000.0000 SNAX`;
+        return supply;
       })
     );
   }
