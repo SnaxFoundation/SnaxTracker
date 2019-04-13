@@ -12,6 +12,7 @@ export class ProducersComponent implements OnInit {
   columnHeaders$: Observable<string[]> = of(PRODUCERS_COLUMNS);
   producers$: Observable<any[]>;
   chainStatus$: Observable<any>;
+  supplyInfo$: Observable<any>;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
@@ -22,19 +23,24 @@ export class ProducersComponent implements OnInit {
     this.columnHeaders$ = this.breakpointObserver
       .observe(Breakpoints.XSmall)
       .pipe(
-        map(
-          result =>
-            result.matches
-              ? PRODUCERS_COLUMNS.filter(
-                  (c: any) => c !== "url" && c !== "numVotes"
-                )
-              : PRODUCERS_COLUMNS
+        map(result =>
+          result.matches
+            ? PRODUCERS_COLUMNS.filter(
+                (c: any) => c !== "url" && c !== "numVotes"
+              )
+            : PRODUCERS_COLUMNS
         )
       );
     this.chainStatus$ = timer(0, 60000).pipe(
       switchMap(() => this.snaxService.getChainStatus()),
       share()
     );
+
+    this.supplyInfo$ = timer(0, 60000).pipe(
+      switchMap(() => this.snaxService.getSupplyInfo("SNAX")),
+      share()
+    );
+
     this.producers$ = this.chainStatus$.pipe(
       switchMap(chainStatus =>
         this.snaxService.getProducers().pipe(
@@ -70,7 +76,8 @@ export class ProducersComponent implements OnInit {
               //   reward += 318;
               // }
 
-              reward += percentageVotesRewarded * blockReward * dailyBlocks / 100;
+              reward +=
+                (percentageVotesRewarded * blockReward * dailyBlocks) / 100;
 
               if (reward < 100) {
                 reward = 0;
