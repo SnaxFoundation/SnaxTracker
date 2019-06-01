@@ -1,14 +1,17 @@
-<mat-card *ngIf="{circulatingSupply: circulatingSupply$ | async, snaxToken: snaxTokenInfo$ | async, global: globalInfo$ | async, teamEscrowBalance: teamEscrow$ | async} as info">
+<mat-card
+  *ngIf="{
+    circulatingSupply: circulatingSupply$ | async,
+    snaxToken: snaxTokenInfo$ | async,
+    global: globalInfo$ | async,
+    teamEscrowBalance: teamEscrow$ | async
+  } as info"
+>
   <mat-card-title fxLayout="row" fxLayoutAlign="start center">
     <mat-icon>donut_large</mat-icon>
     {{ 'Supply' | translate }}
   </mat-card-title>
   <mat-card-content class="table-container">
     <table>
-      <tr *ngIf="info.snaxToken as snaxToken">
-        <td>{{ 'Total 1st stage supply' | translate }}:</td>
-        <td>{{ snaxToken.max_supply }}</td>
-      </tr>
       <tr *ngIf="info.teamEscrowBalance as teamEscrowBalance">
         <td>{{ 'Locked on Escrow' | translate }}:</td>
         <td>{{ teamEscrowBalance }}</td>
@@ -18,7 +21,7 @@
         <td>{{ balance }}</td>
       </tr>
       <tr *ngIf="info.circulatingSupply as circulatingSupply">
-        <td>{{ 'Circulating supply' | translate }}:</td>
+        <td>{{ 'Free circulation' | translate }}:</td>
         <td>{{ circulatingSupply }}</td>
       </tr>
     </table>
