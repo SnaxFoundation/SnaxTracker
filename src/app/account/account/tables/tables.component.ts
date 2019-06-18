@@ -9,25 +9,25 @@ import { map } from 'rxjs/operators';
   styleUrls: ['./tables.component.scss']
 })
 export class TablesComponent implements OnInit {
-
   @Input() account;
   accountTables$: Observable<any[]>;
 
-  constructor(
-    private snaxService: SnaxService
-  ) { }
+  constructor(private snaxService: SnaxService) {}
 
   ngOnInit() {
     if (this.account && this.account.abi && this.account.abi.tables) {
       const table$s: Observable<any>[] = this.account.abi.tables.map(table => {
         return from(
-          this.snaxService.snax.getTableRows(true, this.account.name, this.account.name, table.name, table.key_names[0])
-        ).pipe(
-          map(tableRows => ({ ...table, ...tableRows }))
-        );
+          this.snaxService.snax.rpc.get_table_rows({
+            json: true,
+            code: this.account.name,
+            scope: this.account.name,
+            table: table.name,
+            limit: table.key_names[0]
+          })
+        ).pipe(map(tableRows => ({ ...table, ...tableRows })));
       });
       this.accountTables$ = combineLatest(table$s);
     }
   }
-
 }

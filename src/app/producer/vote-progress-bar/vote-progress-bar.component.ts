@@ -15,8 +15,8 @@ export class VoteProgressBarComponent implements OnChanges {
 
   ngOnChanges() {
     if (this.chainStatus) {
-      this.chainPercentage = (this.chainStatus.total_activated_stake / 10000 / 1000011818 * 100).toFixed(2);
-      this.chainNumber = (this.chainStatus.total_activated_stake / 1000011818 * 100000);
+      this.chainPercentage = (this.chainStatus.total_activated_stake / 10000 / 15004794732 * 100).toFixed(2);
+      this.chainNumber = (this.chainStatus.total_activated_stake / 15004794732 * 100000);
     }
   }
 

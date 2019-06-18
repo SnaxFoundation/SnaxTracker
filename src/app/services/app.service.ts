@@ -94,10 +94,11 @@ export class AppService {
       map(ticker => ticker.data),
       share()
     );
+
     this.ramQuote$ = timer(0, RAM_QUOTE).pipe(
       switchMap(() =>
         from(
-          this.snaxService.snax.getTableRows({
+          this.snaxService.snax.rpc.get_table_rows({
             json: true,
             code: 'snax',
             scope: 'snax',
