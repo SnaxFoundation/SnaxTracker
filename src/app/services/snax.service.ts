@@ -248,13 +248,7 @@ export class SnaxService {
   }
 
   getAbi(name: string): Observable<Result<any>> {
-    const getCode$ = defer(() =>
-      from(
-        this.snax.rpc.get_abi({
-          account_name: name
-        })
-      )
-    );
+    const getCode$ = defer(() => from(this.snax.rpc.get_abi(name)));
     return this.getResult<any>(getCode$);
   }
 
