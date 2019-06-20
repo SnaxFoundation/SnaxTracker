@@ -27,7 +27,7 @@
         <td>{{ teamEscrowBalance }}</td>
       </tr>
       <tr *ngIf="systemBalance$ | async as balance">
-        <td>{{ 'System smart-contract (unclaimed)' | translate }}:</td>
+        <td>{{ 'System smart-contract (unissued)' | translate }}:</td>
         <td>{{ balance }}</td>
       </tr>
       <tr *ngIf="info.circulatingSupply as circulatingSupply">
